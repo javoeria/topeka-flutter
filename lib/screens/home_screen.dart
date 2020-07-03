@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/main.dart';
+import 'package:topeka/models/category.dart';
 import 'package:topeka/screens/category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -55,101 +56,18 @@ class HomeScreen extends StatelessWidget {
         crossAxisCount: 2,
         padding: const EdgeInsets.only(left: 4.0, top: 4.0),
         childAspectRatio: 7 / 8,
-        children: <Widget>[
-          CategoryItem(
-            imagePath: 'food',
-            labelText: 'Food & Drink',
-            labelColor: kGreenPrimaryColor,
-            backgroundColor: kGreenBackgroundColor,
-            textColor: kGreenTextColor,
-            accentColor: kGreenAccentColor,
-          ),
-          CategoryItem(
-            imagePath: 'knowledge',
-            labelText: 'General Knowledge',
-            labelColor: kYellowPrimaryColor,
-            backgroundColor: kYellowBackgroundColor,
-            textColor: kYellowTextColor,
-            accentColor: kYellowAccentColor,
-          ),
-          CategoryItem(
-            imagePath: 'history',
-            labelText: 'History',
-            labelColor: kBluePrimaryColor,
-            backgroundColor: kBlueBackgroundColor,
-            textColor: kBlueTextColor,
-            accentColor: kBlueAccentColor,
-          ),
-          CategoryItem(
-            imagePath: 'geography',
-            labelText: 'Geography',
-            labelColor: kRedPrimaryColor,
-            backgroundColor: kRedBackgroundColor,
-            textColor: kRedTextColor,
-            accentColor: kRedAccentColor,
-          ),
-          CategoryItem(
-            imagePath: 'science',
-            labelText: 'Science and Nature',
-            labelColor: kGreenPrimaryColor,
-            backgroundColor: kGreenBackgroundColor,
-            textColor: kGreenTextColor,
-            accentColor: kGreenAccentColor,
-          ),
-          CategoryItem(
-            imagePath: 'tvmovies',
-            labelText: 'TV & Movies',
-            labelColor: kPurplePrimaryColor,
-            backgroundColor: kPurpleBackgroundColor,
-            textColor: kPurpleTextColor,
-            accentColor: kPurpleAccentColor,
-          ),
-          CategoryItem(
-            imagePath: 'music',
-            labelText: 'Music',
-            labelColor: kBluePrimaryColor,
-            backgroundColor: kBlueBackgroundColor,
-            textColor: kBlueTextColor,
-            accentColor: kBlueAccentColor,
-          ),
-          CategoryItem(
-            imagePath: 'entertainment',
-            labelText: 'Entertainment',
-            labelColor: kRedPrimaryColor,
-            backgroundColor: kRedBackgroundColor,
-            textColor: kRedTextColor,
-            accentColor: kRedAccentColor,
-          ),
-          CategoryItem(
-            imagePath: 'sports',
-            labelText: 'Sports',
-            labelColor: kPurplePrimaryColor,
-            backgroundColor: kPurpleBackgroundColor,
-            textColor: kPurpleTextColor,
-            accentColor: kPurpleAccentColor,
-          ),
-        ],
+        children: Category.sampleData().map((c) {
+          return CategoryItem(c);
+        }).toList(),
       ),
     );
   }
 }
 
 class CategoryItem extends StatelessWidget {
-  CategoryItem({
-    @required this.imagePath,
-    @required this.labelColor,
-    @required this.labelText,
-    @required this.backgroundColor,
-    @required this.textColor,
-    @required this.accentColor,
-  });
+  CategoryItem(this.c);
 
-  final String imagePath;
-  final String labelText;
-  final Color labelColor;
-  final Color backgroundColor;
-  final Color textColor;
-  final Color accentColor;
+  final Category c;
 
   @override
   Widget build(BuildContext context) {
@@ -162,15 +80,15 @@ class CategoryItem extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Container(
-                  color: backgroundColor,
-                  child: Image.asset('images/categories/icon_category_${imagePath}_raster.png'),
+                  color: c.backgroundColor,
+                  child: Image.asset('images/categories/icon_category_${c.id}_raster.png'),
                 ),
               ),
               Container(
-                color: labelColor,
+                color: c.primaryColor,
                 child: Text(
-                  labelText,
-                  style: TextStyle(color: textColor),
+                  c.name,
+                  style: TextStyle(color: c.textColor),
                 ),
                 padding: const EdgeInsets.all(16.0),
               ),
@@ -180,14 +98,7 @@ class CategoryItem extends StatelessWidget {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CategoryScreen(
-              imagePath: imagePath,
-              labelText: labelText,
-              labelColor: labelColor,
-              backgroundColor: backgroundColor,
-              textColor: textColor,
-              accentColor: accentColor,
-            ),
+            builder: (context) => CategoryScreen(c),
             settings: RouteSettings(name: 'CategoryScreen'),
           ),
         ),

@@ -1,44 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:topeka/models/category.dart';
 
 class CategoryScreen extends StatelessWidget {
-  CategoryScreen({
-    @required this.imagePath,
-    @required this.labelColor,
-    @required this.labelText,
-    @required this.backgroundColor,
-    @required this.textColor,
-    @required this.accentColor,
-  });
+  CategoryScreen(this.c);
 
-  final String imagePath;
-  final String labelText;
-  final Color labelColor;
-  final Color backgroundColor;
-  final Color textColor;
-  final Color accentColor;
+  final Category c;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: c.backgroundColor,
       appBar: AppBar(
         title: Text(
-          labelText,
-          style: TextStyle(color: textColor),
+          c.name,
+          style: TextStyle(color: c.textColor),
         ),
-        leading: BackButton(color: textColor),
-        backgroundColor: labelColor,
+        leading: BackButton(color: c.textColor),
+        backgroundColor: c.primaryColor,
         elevation: 0.0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-          child: Image.asset('images/quizzes/image_category_${imagePath}_raster.png'),
+          child: Image.asset('images/quizzes/image_category_${c.id}_raster.png'),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.play_arrow, color: Colors.black),
-        backgroundColor: accentColor,
+        backgroundColor: c.accentColor,
         onPressed: null,
       ),
     );
