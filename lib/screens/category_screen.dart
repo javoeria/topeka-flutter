@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:topeka/models/category.dart';
+import 'package:topeka/screens/quiz_screen.dart';
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreen(this.c);
@@ -28,7 +30,19 @@ class CategoryScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.play_arrow, color: Colors.black),
         backgroundColor: c.accentColor,
-        onPressed: null,
+        onPressed: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => QuizScreen(
+                category: c,
+                avatar: prefs.getInt('avatar'),
+              ),
+              settings: RouteSettings(name: 'QuizScreen'),
+            ),
+          );
+        },
       ),
     );
   }
