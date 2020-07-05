@@ -39,12 +39,12 @@ class SignScreen extends StatefulWidget {
 }
 
 class _SignScreenState extends State<SignScreen> {
-  final nameController = TextEditingController();
-  final initialController = TextEditingController();
-  int _avatar;
+  String name = '';
+  String initial = '';
+  int avatar;
 
   bool get _isReady {
-    return nameController.text.isNotEmpty && initialController.text.isNotEmpty && _avatar != null;
+    return name.isNotEmpty && initial.isNotEmpty && avatar != null;
   }
 
   @override
@@ -60,16 +60,20 @@ class _SignScreenState extends State<SignScreen> {
             ),
             SizedBox(height: 8.0),
             TextField(
-              controller: nameController,
               decoration: InputDecoration(labelText: 'First Name', alignLabelWithHint: true),
               textCapitalization: TextCapitalization.words,
+              onChanged: (value) {
+                setState(() => name = value);
+              },
             ),
             TextField(
-              controller: initialController,
               decoration: InputDecoration(
                   labelText: 'Last Initial', alignLabelWithHint: true, counterText: ''),
               textCapitalization: TextCapitalization.words,
               maxLength: 1,
+              onChanged: (value) {
+                setState(() => initial = value);
+              },
             ),
             SizedBox(height: 80.0),
             Text(
@@ -86,9 +90,9 @@ class _SignScreenState extends State<SignScreen> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap: () => setState(() => _avatar = i),
+                    onTap: () => setState(() => avatar = i),
                     child: Material(
-                      shape: _avatar == i
+                      shape: avatar == i
                           ? CircleBorder(side: BorderSide(color: kBasePrimaryColor, width: 4))
                           : null,
                       child: CircleAvatar(
@@ -108,14 +112,14 @@ class _SignScreenState extends State<SignScreen> {
               backgroundColor: kBasePrimaryColor,
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setString('name', nameController.text + ' ' + initialController.text);
-                await prefs.setInt('avatar', _avatar);
+                await prefs.setString('name', name + ' ' + initial);
+                await prefs.setInt('avatar', avatar);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => HomeScreen(
-                      name: nameController.text + ' ' + initialController.text,
-                      avatar: _avatar,
+                      name: name + ' ' + initial,
+                      avatar: avatar,
                       points: 0,
                     ),
                     settings: RouteSettings(name: 'HomeScreen'),

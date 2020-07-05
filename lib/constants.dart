@@ -40,3 +40,32 @@ const kYellowTextColor = kTextDarkColor;
 const kGreenColor = Color(0xFF00e676);
 const kRedColor = Color(0xFFff5252);
 const kLightGreyColor = Color(0xFFf5f5f5);
+
+const List<String> alphabet = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z'
+];

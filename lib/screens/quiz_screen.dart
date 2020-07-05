@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/models/category.dart';
 import 'package:topeka/models/quiz.dart';
+import 'package:topeka/widgets/fill_blank_quiz.dart';
+import 'package:topeka/widgets/four_quarter_quiz.dart';
+import 'package:topeka/widgets/multi_select_quiz.dart';
+import 'package:topeka/widgets/picker_quiz.dart';
+import 'package:topeka/widgets/single_select_quiz.dart';
+import 'package:topeka/widgets/true_false_quiz.dart';
 
 class QuizScreen extends StatefulWidget {
   QuizScreen({
@@ -21,14 +27,54 @@ class _QuizScreenState extends State<QuizScreen> {
   int step = 0;
   List<bool> results = [];
 
-  IconData fabIcon = Icons.check;
-  Color fabColor;
-
   @override
   void initState() {
     super.initState();
     quiz = widget.category.quizzes[0];
-    fabColor = widget.category.accentColor;
+  }
+
+  void nextStep(bool value) {
+    results.add(value);
+    setState(() {
+      step += 1;
+      quiz = widget.category.quizzes[step % 10];
+    });
+  }
+
+  Widget showQuiz() {
+    switch (quiz.type) {
+      case 'alpha-picker':
+        return PickerQuiz(widget.category, step, nextStep, alpha: true);
+        break;
+      case 'fill-blank':
+        return FillBlankQuiz(widget.category, step, nextStep);
+        break;
+      case 'fill-two-blanks':
+        return FillBlankQuiz(widget.category, step, nextStep, two: true);
+        break;
+      case 'four-quarter':
+        return FourQuarterQuiz(widget.category, step, nextStep);
+        break;
+      case 'multi-select':
+        return MultiSelectQuiz(widget.category, step, nextStep);
+        break;
+      case 'picker':
+        return PickerQuiz(widget.category, step, nextStep);
+        break;
+      case 'single-select':
+      case 'single-select-item':
+        return SingleSelectQuiz(widget.category, step, nextStep);
+        break;
+      case 'toggle-translate':
+        return MultiSelectQuiz(widget.category, step, nextStep, translate: true);
+        break;
+      case 'true-false':
+        return TrueFalseQuiz(widget.category, step, nextStep);
+        break;
+      default:
+        return Text(quiz.type);
+        break;
+    }
   }
 
   @override
@@ -44,54 +90,7 @@ class _QuizScreenState extends State<QuizScreen> {
         backgroundColor: widget.category.primaryColor,
         elevation: 0.0,
       ),
-      body: step == 10
-          ? ResultList(widget.category, results)
-          : Stack(
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Material(
-                      elevation: 2,
-                      child: Container(
-                        height: 100.0,
-                        color: widget.category.primaryColor,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-                          child: Text(
-                            quiz.question,
-                            style: TextStyle(color: widget.category.textColor),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Text(quiz.type),
-                  ],
-                ),
-                Positioned(
-                  top: 72,
-                  right: 16,
-                  child: FloatingActionButton(
-                    child: Icon(fabIcon, color: Colors.black),
-                    backgroundColor: fabColor,
-                    onPressed: () async {
-                      results.add(false);
-                      setState(() {
-                        fabIcon = Icons.close;
-                        fabColor = kRedColor;
-                      });
-                      await Future.delayed(Duration(seconds: 1));
-                      setState(() {
-                        fabIcon = Icons.check;
-                        fabColor = widget.category.accentColor;
-                        step += 1;
-                        quiz = widget.category.quizzes[step % 10];
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
+      body: step == 10 ? ResultList(widget.category, results) : showQuiz(),
       bottomNavigationBar: Container(
         color: widget.category.primaryColor,
         child: Padding(
