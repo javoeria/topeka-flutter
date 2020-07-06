@@ -6,7 +6,7 @@ import 'package:topeka/models/category.dart';
 import 'package:topeka/screens/category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({@required this.name, @required this.avatar, @required this.points});
+  HomeScreen({@required this.name, @required this.avatar, this.points = 0});
 
   final String name;
   final int avatar;
@@ -53,10 +53,12 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        padding: const EdgeInsets.only(left: 4.0, top: 4.0),
+      body: GridView.extent(
+        maxCrossAxisExtent: 300.0,
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
         childAspectRatio: 7 / 8,
+        padding: const EdgeInsets.all(4.0),
         children: Category.sampleData().map((c) {
           return CategoryItem(c);
         }).toList(),
@@ -72,37 +74,34 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 4.0, bottom: 4.0),
-      child: InkWell(
-        key: Key('category_${c.id}'),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  color: c.backgroundColor,
-                  child: Image.asset('images/categories/icon_category_${c.id}_raster.png'),
-                ),
+    return InkWell(
+      key: Key('category_${c.id}'),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                color: c.backgroundColor,
+                child: Image.asset('images/categories/icon_category_${c.id}_raster.png'),
               ),
-              Container(
-                color: c.primaryColor,
-                child: Text(
-                  c.name,
-                  style: TextStyle(color: c.textColor),
-                ),
-                padding: const EdgeInsets.all(16.0),
+            ),
+            Container(
+              color: c.primaryColor,
+              child: Text(
+                c.name,
+                style: TextStyle(color: c.textColor),
               ),
-            ],
-          ),
+              padding: const EdgeInsets.all(16.0),
+            ),
+          ],
         ),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CategoryScreen(c),
-            settings: RouteSettings(name: 'CategoryScreen'),
-          ),
+      ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CategoryScreen(c),
+          settings: RouteSettings(name: 'CategoryScreen'),
         ),
       ),
     );

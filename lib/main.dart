@@ -82,29 +82,28 @@ class _SignScreenState extends State<SignScreen> {
               'Choose an Avatar',
               style: Theme.of(context).textTheme.headline6.copyWith(color: kBasePrimaryColor),
             ),
-            SizedBox(height: 8.0),
-            GridView.count(
-              crossAxisCount: 5,
+            SizedBox(height: 16.0),
+            GridView.extent(
+              maxCrossAxisExtent: 64.0,
+              mainAxisSpacing: 16.0,
+              crossAxisSpacing: 16.0,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               children: List.generate(16, (index) {
                 int i = index + 1;
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    key: Key('avatar_$i'),
-                    child: Material(
-                      shape: avatar == i
-                          ? CircleBorder(side: BorderSide(color: kBasePrimaryColor, width: 4))
-                          : null,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('images/avatars/avatar_${i}_raster.png'),
-                      ),
+                return GestureDetector(
+                  key: Key('avatar_$i'),
+                  child: Material(
+                    shape: avatar == i
+                        ? CircleBorder(side: BorderSide(color: kBasePrimaryColor, width: 4))
+                        : null,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('images/avatars/avatar_${i}_raster.png'),
                     ),
-                    onTap: () {
-                      setState(() => avatar = i);
-                    },
                   ),
+                  onTap: () {
+                    setState(() => avatar = i);
+                  },
                 );
               }),
             ),
@@ -125,7 +124,6 @@ class _SignScreenState extends State<SignScreen> {
                     builder: (context) => HomeScreen(
                       name: name + ' ' + initial,
                       avatar: avatar,
-                      points: 0,
                     ),
                     settings: RouteSettings(name: 'HomeScreen'),
                   ),
