@@ -16,6 +16,7 @@ class CategoryScreen extends StatelessWidget {
         title: Text(
           c.name,
           style: TextStyle(color: c.textColor),
+          key: Key('category'),
         ),
         leading: BackButton(color: c.textColor),
         backgroundColor: c.primaryColor,

@@ -25,9 +25,9 @@ class HomeScreen extends StatelessWidget {
                 backgroundImage: AssetImage('images/avatars/avatar_${avatar}_raster.png'),
               ),
               SizedBox(width: 16.0),
-              Text(name),
+              Text(name, key: Key('title')),
               Spacer(),
-              Text('$points pts'),
+              Text('$points pts', key: Key('score')),
             ],
           ),
         ),
@@ -35,6 +35,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: kBasePrimaryColor,
         actions: <Widget>[
           PopupMenuButton(
+            key: Key('menu'),
             onSelected: (value) async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.clear();
@@ -74,6 +75,7 @@ class CategoryItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 4.0, bottom: 4.0),
       child: InkWell(
+        key: Key('category_${c.id}'),
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

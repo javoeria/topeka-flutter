@@ -60,6 +60,7 @@ class _SignScreenState extends State<SignScreen> {
             ),
             SizedBox(height: 8.0),
             TextField(
+              key: Key('name'),
               decoration: InputDecoration(labelText: 'First Name', alignLabelWithHint: true),
               textCapitalization: TextCapitalization.words,
               onChanged: (value) {
@@ -67,6 +68,7 @@ class _SignScreenState extends State<SignScreen> {
               },
             ),
             TextField(
+              key: Key('initial'),
               decoration: InputDecoration(
                   labelText: 'Last Initial', alignLabelWithHint: true, counterText: ''),
               textCapitalization: TextCapitalization.words,
@@ -90,7 +92,7 @@ class _SignScreenState extends State<SignScreen> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap: () => setState(() => avatar = i),
+                    key: Key('avatar_$i'),
                     child: Material(
                       shape: avatar == i
                           ? CircleBorder(side: BorderSide(color: kBasePrimaryColor, width: 4))
@@ -99,6 +101,9 @@ class _SignScreenState extends State<SignScreen> {
                         backgroundImage: AssetImage('images/avatars/avatar_${i}_raster.png'),
                       ),
                     ),
+                    onTap: () {
+                      setState(() => avatar = i);
+                    },
                   ),
                 );
               }),

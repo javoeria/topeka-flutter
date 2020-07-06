@@ -14,8 +14,9 @@ dependencies:
   shared_preferences: ^0.5.7+3
 
 dev_dependencies:
-  flutter_test:
+  flutter_driver:
     sdk: flutter
+  test: any
 
 flutter:
   uses-material-design: true
