@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/main.dart';
 import 'package:topeka/models/category.dart';
+import 'package:topeka/models/user.dart';
 import 'package:topeka/screens/category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({@required this.name, @required this.avatar, this.points = 0});
+  HomeScreen({@required this.name, @required this.avatar});
 
   final String name;
   final int avatar;
-  final int points;
 
   @override
   Widget build(BuildContext context) {
+    int points = context.watch<UserData>().points;
     return Scaffold(
       backgroundColor: Color(0xFF424242),
       appBar: AppBar(
@@ -36,9 +37,8 @@ class HomeScreen extends StatelessWidget {
         actions: <Widget>[
           PopupMenuButton(
             key: Key('menu'),
-            onSelected: (value) async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.clear();
+            onSelected: (value) {
+              context.read<UserData>().clear();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => SignScreen()),
@@ -74,6 +74,7 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<bool> results = context.watch<UserData>().categoryResults(c.id);
     return InkWell(
       key: Key('category_${c.id}'),
       child: Container(
@@ -81,10 +82,24 @@ class CategoryItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              child: Container(
-                color: c.backgroundColor,
-                child: Image.asset('images/categories/icon_category_${c.id}_raster.png'),
-              ),
+              child: results.length == 10
+                  ? Stack(
+                      fit: StackFit.expand,
+                      children: <Widget>[
+                        Container(
+                          color: c.backgroundColor,
+                          child: Image.asset(
+                            'images/categories/icon_category_${c.id}_raster.png',
+                            color: c.primaryColor,
+                          ),
+                        ),
+                        Icon(Icons.check, color: Colors.white, size: 180)
+                      ],
+                    )
+                  : Container(
+                      color: c.backgroundColor,
+                      child: Image.asset('images/categories/icon_category_${c.id}_raster.png'),
+                    ),
             ),
             Container(
               color: c.primaryColor,

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/models/category.dart';
 import 'package:topeka/models/quiz.dart';
+import 'package:topeka/models/user.dart';
 import 'package:topeka/widgets/header_quiz.dart';
 
 class TrueFalseQuiz extends StatefulWidget {
-  TrueFalseQuiz(this.category, this.step, this.next);
+  TrueFalseQuiz(this.category, this.step);
 
   final Category category;
   final int step;
-  final Function next;
 
   @override
   _TrueFalseQuizState createState() => _TrueFalseQuizState();
@@ -94,7 +95,7 @@ class _TrueFalseQuizState extends State<TrueFalseQuiz> {
                       fabColor = correct ? kGreenColor : kRedColor;
                     });
                     await Future.delayed(Duration(seconds: 1), () => clear());
-                    widget.next(correct);
+                    context.read<UserData>().nextStep(widget.category.id, correct);
                   },
                 ),
               )

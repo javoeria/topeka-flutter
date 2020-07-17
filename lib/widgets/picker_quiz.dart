@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/models/category.dart';
 import 'package:topeka/models/quiz.dart';
+import 'package:topeka/models/user.dart';
 import 'package:topeka/widgets/header_quiz.dart';
 
 class PickerQuiz extends StatefulWidget {
-  PickerQuiz(this.category, this.step, this.next, {this.alpha = false});
+  PickerQuiz(this.category, this.step, {this.alpha = false});
 
   final Category category;
   final int step;
-  final Function next;
   final bool alpha;
 
   @override
@@ -86,7 +87,7 @@ class _PickerQuizState extends State<PickerQuiz> {
                       fabColor = correct ? kGreenColor : kRedColor;
                     });
                     await Future.delayed(Duration(seconds: 1), () => clear());
-                    widget.next(correct);
+                    context.read<UserData>().nextStep(widget.category.id, correct);
                   },
                 ),
               )

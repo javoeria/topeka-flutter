@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/models/category.dart';
 import 'package:topeka/models/quiz.dart';
+import 'package:topeka/models/user.dart';
 import 'package:topeka/widgets/header_quiz.dart';
 
 class FourQuarterQuiz extends StatefulWidget {
-  FourQuarterQuiz(this.category, this.step, this.next);
+  FourQuarterQuiz(this.category, this.step);
 
   final Category category;
   final int step;
-  final Function next;
 
   @override
   _FourQuarterQuizState createState() => _FourQuarterQuizState();
@@ -127,7 +128,7 @@ class _FourQuarterQuizState extends State<FourQuarterQuiz> {
                       fabColor = correct ? kGreenColor : kRedColor;
                     });
                     await Future.delayed(Duration(seconds: 1), () => clear());
-                    widget.next(correct);
+                    context.read<UserData>().nextStep(widget.category.id, correct);
                   },
                 ),
               )

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/models/category.dart';
 import 'package:topeka/models/quiz.dart';
+import 'package:topeka/models/user.dart';
 import 'package:topeka/widgets/header_quiz.dart';
 
 class SingleSelectQuiz extends StatefulWidget {
-  SingleSelectQuiz(this.category, this.step, this.next);
+  SingleSelectQuiz(this.category, this.step);
 
   final Category category;
   final int step;
-  final Function next;
 
   @override
   _SingleSelectQuizState createState() => _SingleSelectQuizState();
@@ -79,7 +80,7 @@ class _SingleSelectQuizState extends State<SingleSelectQuiz> {
                       fabColor = correct ? kGreenColor : kRedColor;
                     });
                     await Future.delayed(Duration(seconds: 1), () => clear());
-                    widget.next(correct);
+                    context.read<UserData>().nextStep(widget.category.id, correct);
                   },
                 ),
               )

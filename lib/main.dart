@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:topeka/constants.dart';
+import 'package:topeka/models/user.dart';
 import 'package:topeka/screens/home_screen.dart';
 
 void main() async {
@@ -16,19 +18,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Topeka',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ChangeNotifierProvider(
+      create: (context) => UserData(prefs),
+      child: MaterialApp(
+        title: 'Topeka',
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: prefs.getKeys().isEmpty
+            ? SignScreen()
+            : HomeScreen(
+                name: prefs.getString('name'),
+                avatar: prefs.getInt('avatar'),
+              ),
       ),
-      home: prefs.getKeys().isEmpty
-          ? SignScreen()
-          : HomeScreen(
-              name: prefs.getString('name'),
-              avatar: prefs.getInt('avatar'),
-              points: prefs.getInt('points') ?? 0,
-            ),
     );
   }
 }
@@ -116,8 +120,8 @@ class _SignScreenState extends State<SignScreen> {
               backgroundColor: kBasePrimaryColor,
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setString('name', name + ' ' + initial);
-                await prefs.setInt('avatar', avatar);
+                prefs.setString('name', name + ' ' + initial);
+                prefs.setInt('avatar', avatar);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

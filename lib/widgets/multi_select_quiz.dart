@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/models/category.dart';
 import 'package:topeka/models/quiz.dart';
+import 'package:topeka/models/user.dart';
 import 'package:topeka/widgets/header_quiz.dart';
 
 class MultiSelectQuiz extends StatefulWidget {
-  MultiSelectQuiz(this.category, this.step, this.next, {this.translate = false});
+  MultiSelectQuiz(this.category, this.step, {this.translate = false});
 
   final Category category;
   final int step;
-  final Function next;
   final bool translate;
 
   @override
@@ -85,7 +86,7 @@ class _MultiSelectQuizState extends State<MultiSelectQuiz> {
                       fabColor = correct ? kGreenColor : kRedColor;
                     });
                     await Future.delayed(Duration(seconds: 1), () => clear());
-                    widget.next(correct);
+                    context.read<UserData>().nextStep(widget.category.id, correct);
                   },
                 ),
               )

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:topeka/constants.dart';
 import 'package:topeka/models/category.dart';
 import 'package:topeka/models/quiz.dart';
+import 'package:topeka/models/user.dart';
 import 'package:topeka/widgets/header_quiz.dart';
 
 class FillBlankQuiz extends StatefulWidget {
-  FillBlankQuiz(this.category, this.step, this.next, {this.two = false});
+  FillBlankQuiz(this.category, this.step, {this.two = false});
 
   final Category category;
   final int step;
-  final Function next;
   final bool two;
 
   @override
@@ -51,7 +52,9 @@ class _FillBlankQuizState extends State<FillBlankQuiz> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  quiz.start != null ? Text(quiz.start) : Container(),
+                  quiz.start != null
+                      ? Text(quiz.start, style: TextStyle(color: kTextDarkColor))
+                      : Container(),
                   TextField(
                     cursorColor: widget.category.accentColor,
                     decoration: InputDecoration(
@@ -78,7 +81,9 @@ class _FillBlankQuizState extends State<FillBlankQuiz> {
                           },
                         )
                       : Container(),
-                  quiz.end != null ? Text(quiz.end) : Container(),
+                  quiz.end != null
+                      ? Text(quiz.end, style: TextStyle(color: kTextDarkColor))
+                      : Container(),
                 ],
               ),
             ),
@@ -100,7 +105,7 @@ class _FillBlankQuizState extends State<FillBlankQuiz> {
                       fabColor = correct ? kGreenColor : kRedColor;
                     });
                     await Future.delayed(Duration(seconds: 1), () => clear());
-                    widget.next(correct);
+                    context.read<UserData>().nextStep(widget.category.id, correct);
                   },
                 ),
               )
