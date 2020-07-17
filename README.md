@@ -1,16 +1,17 @@
-# topeka
+# Topeka for Flutter
 
-A new Flutter project.
+A fun to play quiz that showcases material design on Flutter (Android & iOS)
 
-## Getting Started
+### Introduction
 
-This project is a starting point for a Flutter application.
+Material design is a new system for visual, interaction and motion design.
+The Flutter version of Topeka demonstrates that the same branding and material
+design principles can be used to create a consistent experience across
+platforms.
 
-A few resources to get you started if this is your first Flutter project:
+This project is based on the [Topeka android app](https://github.com/android/topeka)
+as an Open Source example of material design on Android.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Screenshots
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="images/categories.png" width="30%" /><img src="images/category_history.png" width="30%" /><img src="images/quiz_shakespeare.png" width="30%" />
