@@ -41,13 +41,13 @@ const RESOURCES = {
 "assets/images/quizzes/image_category_science_raster.png": "afc8c5bd029bc75efa058fd51d0c8890",
 "assets/images/quizzes/image_category_sports_raster.png": "b9c53bfc853070f5c33184d7b2de63b7",
 "assets/images/quizzes/image_category_tvmovies_raster.png": "38fabf8d47fe8b46beb10f7a3308183e",
-"assets/NOTICES": "86f2562615b71e5105df514512608c0b",
+"assets/NOTICES": "0753f952aa8b86d4529ed751b568c649",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"index.html": "1103506c8fa90a11f0dace9f679bdee9",
-"/": "1103506c8fa90a11f0dace9f679bdee9",
-"main.dart.js": "6849f17aa741d3b3e1b850fecd73f998",
+"index.html": "7584ef31b6ab8e443b81ef23faf18512",
+"/": "7584ef31b6ab8e443b81ef23faf18512",
+"main.dart.js": "86edfbabe16ced733ed373a06c4a4334",
 "manifest.json": "acfb6571e26348bf94bc740a0bed3a00",
 "version.json": "4fcaedbd3ef359a43c43f62aa6c514f7"
 };
