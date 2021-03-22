@@ -1,6 +1,8 @@
 name: topeka
 description: A fun to play quiz that showcases material design on Flutter.
 
+publish_to: 'none'
+
 version: 1.0.0+1
 
 environment:
@@ -10,8 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  provider: ^4.3.2
-  shared_preferences: ^0.5.12
+  provider: ^5.0.0
+  shared_preferences: ^2.0.5
 
 dev_dependencies:
   flutter_driver:
