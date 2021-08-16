@@ -38,7 +38,7 @@ class CategoryScreen extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => QuizScreen(
                 category: c,
-                avatar: prefs.getInt('avatar'),
+                avatar: prefs.getInt('avatar')!,
               ),
               settings: RouteSettings(name: 'QuizScreen'),
             ),

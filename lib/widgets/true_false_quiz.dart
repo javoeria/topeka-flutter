@@ -18,8 +18,8 @@ class TrueFalseQuiz extends StatefulWidget {
 
 class _TrueFalseQuizState extends State<TrueFalseQuiz> {
   IconData fabIcon = Icons.check;
-  Color fabColor;
-  bool answer;
+  Color? fabColor;
+  bool? answer;
 
   @override
   void initState() {

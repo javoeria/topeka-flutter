@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
         home: prefs.getKeys().isEmpty
             ? SignScreen()
             : HomeScreen(
-                name: prefs.getString('name'),
-                avatar: prefs.getInt('avatar'),
+                name: prefs.getString('name')!,
+                avatar: prefs.getInt('avatar')!,
               ),
       ),
     );
@@ -45,7 +45,7 @@ class SignScreen extends StatefulWidget {
 class _SignScreenState extends State<SignScreen> {
   String name = '';
   String initial = '';
-  int avatar;
+  int? avatar;
 
   bool get _isReady {
     return name.isNotEmpty && initial.isNotEmpty && avatar != null;
@@ -60,7 +60,7 @@ class _SignScreenState extends State<SignScreen> {
           children: <Widget>[
             Text(
               'Sign In',
-              style: Theme.of(context).textTheme.headline6.copyWith(color: kBasePrimaryColor),
+              style: Theme.of(context).textTheme.headline6!.copyWith(color: kBasePrimaryColor),
             ),
             SizedBox(height: 8.0),
             TextField(
@@ -84,7 +84,7 @@ class _SignScreenState extends State<SignScreen> {
             SizedBox(height: 80.0),
             Text(
               'Choose an Avatar',
-              style: Theme.of(context).textTheme.headline6.copyWith(color: kBasePrimaryColor),
+              style: Theme.of(context).textTheme.headline6!.copyWith(color: kBasePrimaryColor),
             ),
             SizedBox(height: 16.0),
             GridView.extent(
@@ -121,13 +121,13 @@ class _SignScreenState extends State<SignScreen> {
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.setString('name', name + ' ' + initial);
-                prefs.setInt('avatar', avatar);
+                prefs.setInt('avatar', avatar!);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => HomeScreen(
                       name: name + ' ' + initial,
-                      avatar: avatar,
+                      avatar: avatar!,
                     ),
                     settings: RouteSettings(name: 'HomeScreen'),
                   ),

@@ -11,10 +11,10 @@ class UserData extends ChangeNotifier {
 
   final SharedPreferences prefs;
 
-  int _points;
+  late int _points;
   int get points => _points * 8;
 
-  List<String> _history;
+  late List<String> _history;
   UnmodifiableListView<String> get history => UnmodifiableListView(_history);
 
   List<bool> categoryResults(String id) {

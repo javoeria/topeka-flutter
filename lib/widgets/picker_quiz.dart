@@ -19,8 +19,8 @@ class PickerQuiz extends StatefulWidget {
 
 class _PickerQuizState extends State<PickerQuiz> {
   IconData fabIcon = Icons.check;
-  Color fabColor;
-  int answer;
+  Color? fabColor;
+  int? answer;
   bool changed = false;
 
   @override
@@ -50,17 +50,17 @@ class _PickerQuizState extends State<PickerQuiz> {
             HeaderQuiz(widget.category, widget.step),
             SizedBox(height: 16.0),
             Text(
-              widget.alpha ? alphabet[answer] : (answer ?? quiz.min).toString(),
+              widget.alpha ? alphabet[answer!] : (answer ?? quiz.min).toString(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline1.copyWith(
+              style: Theme.of(context).textTheme.headline1!.copyWith(
                     color: kBasePrimaryColor,
                     fontWeight: FontWeight.normal,
                   ),
             ),
             Slider(
-              value: (answer ?? quiz.min).toDouble(),
-              min: widget.alpha ? 0 : quiz.min.toDouble(),
-              max: widget.alpha ? 25 : quiz.max.toDouble(),
+              value: (answer ?? quiz.min)!.toDouble(),
+              min: widget.alpha ? 0 : quiz.min!.toDouble(),
+              max: widget.alpha ? 25 : quiz.max!.toDouble(),
               divisions: quiz.step,
               activeColor: widget.category.accentColor,
               onChanged: (value) {
@@ -80,7 +80,7 @@ class _PickerQuizState extends State<PickerQuiz> {
                   child: Icon(fabIcon, color: Colors.black),
                   backgroundColor: fabColor,
                   onPressed: () async {
-                    dynamic value = widget.alpha ? alphabet[answer] : answer;
+                    dynamic value = widget.alpha ? alphabet[answer!] : answer;
                     bool correct = quiz.answer.toString() == value.toString();
                     setState(() {
                       fabIcon = correct ? Icons.check : Icons.close;

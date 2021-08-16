@@ -7,7 +7,7 @@ import 'package:topeka/models/user.dart';
 import 'package:topeka/screens/category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({@required this.name, @required this.avatar});
+  HomeScreen({required this.name, required this.avatar});
 
   final String name;
   final int avatar;

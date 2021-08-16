@@ -19,7 +19,7 @@ class FillBlankQuiz extends StatefulWidget {
 
 class _FillBlankQuizState extends State<FillBlankQuiz> {
   IconData fabIcon = Icons.check;
-  Color fabColor;
+  Color? fabColor;
   String answer = '';
   String answer2 = '';
 
@@ -53,7 +53,7 @@ class _FillBlankQuizState extends State<FillBlankQuiz> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   quiz.start != null
-                      ? Text(quiz.start, style: TextStyle(color: kTextDarkColor))
+                      ? Text(quiz.start!, style: TextStyle(color: kTextDarkColor))
                       : Container(),
                   TextField(
                     cursorColor: widget.category.accentColor,
@@ -82,7 +82,7 @@ class _FillBlankQuizState extends State<FillBlankQuiz> {
                         )
                       : Container(),
                   quiz.end != null
-                      ? Text(quiz.end, style: TextStyle(color: kTextDarkColor))
+                      ? Text(quiz.end!, style: TextStyle(color: kTextDarkColor))
                       : Container(),
                 ],
               ),

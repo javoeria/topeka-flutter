@@ -18,8 +18,8 @@ class FourQuarterQuiz extends StatefulWidget {
 
 class _FourQuarterQuizState extends State<FourQuarterQuiz> {
   IconData fabIcon = Icons.check;
-  Color fabColor;
-  int answer;
+  Color? fabColor;
+  int? answer;
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _FourQuarterQuizState extends State<FourQuarterQuiz> {
                     color: answer == 0 ? widget.category.primaryColor : null,
                     child: ListTile(
                       title: Text(
-                        quiz.options[0],
+                        quiz.options![0],
                         textAlign: TextAlign.center,
                         style: TextStyle(color: kTextDarkColor),
                       ),
@@ -66,7 +66,7 @@ class _FourQuarterQuizState extends State<FourQuarterQuiz> {
                     color: answer == 1 ? widget.category.primaryColor : null,
                     child: ListTile(
                       title: Text(
-                        quiz.options[1],
+                        quiz.options![1],
                         textAlign: TextAlign.center,
                         style: TextStyle(color: kTextDarkColor),
                       ),
@@ -85,7 +85,7 @@ class _FourQuarterQuizState extends State<FourQuarterQuiz> {
                     color: answer == 2 ? widget.category.primaryColor : null,
                     child: ListTile(
                       title: Text(
-                        quiz.options[2],
+                        quiz.options![2],
                         textAlign: TextAlign.center,
                         style: TextStyle(color: kTextDarkColor),
                       ),
@@ -100,7 +100,7 @@ class _FourQuarterQuizState extends State<FourQuarterQuiz> {
                     color: answer == 3 ? widget.category.primaryColor : null,
                     child: ListTile(
                       title: Text(
-                        quiz.options[3],
+                        quiz.options![3],
                         textAlign: TextAlign.center,
                         style: TextStyle(color: kTextDarkColor),
                       ),

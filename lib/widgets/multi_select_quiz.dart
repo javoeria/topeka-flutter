@@ -19,7 +19,7 @@ class MultiSelectQuiz extends StatefulWidget {
 
 class _MultiSelectQuizState extends State<MultiSelectQuiz> {
   IconData fabIcon = Icons.check;
-  Color fabColor;
+  Color? fabColor;
   List<int> answer = [];
 
   @override
@@ -47,18 +47,18 @@ class _MultiSelectQuizState extends State<MultiSelectQuiz> {
             HeaderQuiz(widget.category, widget.step),
             Expanded(
               child: ListView.separated(
-                itemCount: quiz.options.length,
+                itemCount: quiz.options!.length,
                 separatorBuilder: (BuildContext context, int index) => Divider(height: 0.0),
                 itemBuilder: (BuildContext context, int index) {
                   return CheckboxListTile(
                     title: Text(
-                      widget.translate ? quiz.options[index].join(' <> ') : quiz.options[index],
+                      widget.translate ? quiz.options![index].join(' <> ') : quiz.options![index],
                       style: TextStyle(color: kTextDarkColor),
                     ),
                     value: answer.contains(index),
                     activeColor: widget.category.accentColor,
                     checkColor: widget.category.backgroundColor,
-                    onChanged: (bool value) {
+                    onChanged: (value) {
                       if (value == true) {
                         setState(() => answer.add(index));
                       } else {

@@ -18,8 +18,8 @@ class SingleSelectQuiz extends StatefulWidget {
 
 class _SingleSelectQuizState extends State<SingleSelectQuiz> {
   IconData fabIcon = Icons.check;
-  Color fabColor;
-  int answer;
+  Color? fabColor;
+  int? answer;
 
   @override
   void initState() {
@@ -46,14 +46,14 @@ class _SingleSelectQuizState extends State<SingleSelectQuiz> {
             HeaderQuiz(widget.category, widget.step),
             Expanded(
               child: ListView.separated(
-                itemCount: quiz.options.length,
+                itemCount: quiz.options!.length,
                 separatorBuilder: (BuildContext context, int index) => Divider(height: 0.0),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     color: answer == index ? widget.category.primaryColor : null,
                     child: ListTile(
                       title: Text(
-                        alphabet[index] + '. ' + quiz.options[index],
+                        alphabet[index] + '. ' + quiz.options![index],
                         style: TextStyle(color: kTextDarkColor),
                       ),
                       onTap: () {

@@ -13,8 +13,8 @@ import 'package:topeka/widgets/true_false_quiz.dart';
 
 class QuizScreen extends StatelessWidget {
   QuizScreen({
-    @required this.category,
-    @required this.avatar,
+    required this.category,
+    required this.avatar,
   });
 
   final Category category;
@@ -126,9 +126,9 @@ class ResultList extends StatelessWidget {
             if (quiz.type == 'fill-two-blanks') {
               answer = quiz.answer.join('\n');
             } else if (quiz.type == 'toggle-translate') {
-              answer = quiz.answer.map((a) => quiz.options[a].join(' <> ')).join('\n');
+              answer = quiz.answer.map((a) => quiz.options![a].join(' <> ')).join('\n');
             } else {
-              answer = quiz.answer.map((a) => quiz.options[a]).join('\n');
+              answer = quiz.answer.map((a) => quiz.options![a]).join('\n');
             }
           }
 

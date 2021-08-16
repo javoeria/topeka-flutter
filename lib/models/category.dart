@@ -4,15 +4,15 @@ import 'package:topeka/models/quiz.dart';
 
 class Category {
   Category({
-    this.name,
-    this.id,
-    this.theme,
-    this.quizzes,
-    this.backgroundColor,
-    this.primaryColor,
-    this.primaryDarkColor,
-    this.accentColor,
-    this.textColor,
+    required this.name,
+    required this.id,
+    required this.theme,
+    required this.quizzes,
+    required this.backgroundColor,
+    required this.primaryColor,
+    required this.primaryDarkColor,
+    required this.accentColor,
+    required this.textColor,
   });
 
   final String name;
